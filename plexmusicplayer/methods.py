@@ -5,16 +5,23 @@ import requests
 import xmltodict
 import json
 from fuzzywuzzy import process
-from requests import get
+import xml.etree.ElementTree
+
+raw_plex_token = "plextokenhere"
 plex_string = "longplexstringhere"
 plex_port = "plexporthere"
-def getStreamBaseURL():
-        ip = get('https://api.ipify.org').text
-        splitIP = ip.split('.')
-        return "https://"+splitIP[0]+"-"+splitIP[1]+"-"+splitIP[2]+"-"+splitIP[3]+plex_string+".plex.direct:"+plex_port
 
-stream_base_url = getStreamBaseURL()
-raw_plex_token = "plextokenhere"
+def getPlexURL():
+        r = requests.get('https://plex.tv/api/resources.xml?auth_token='+raw_plex_token+'&includeHttps=1')
+        e = xml.etree.ElementTree.fromstring(r.text)
+        for atype in e.findall('Device'):
+                if atype.get('name') == "PlexServer":
+                        for conn in atype.findall('Connection'):
+                                if conn.get('local') == "0":
+                                        return conn.get('uri')
+
+stream_base_url = getPlexURL()
+
 plex_token = "X-Plex-Token="+raw_plex_token
 try:
     base_url = "http://localiphere:"+plex_port
