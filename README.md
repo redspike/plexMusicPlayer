@@ -1,4 +1,15 @@
 # Plex Music Player
+This fork allows you to host the code on your own server rather than through heroku.
+
+Just copy the code for the apache conf to a virtual host on your server 
+Set up an SSL certificate (can be self signed)
+Fill in the plex token and the local ip of your server in the methods.py file
+Restart Apache
+
+Follow Tyzer34's guide for creating the Alexa skill and away you go.
+
+Skill currently only works with the American language version of Alexa...
+
 Full blog post available on: https://medium.com/@Tyzer34/plex-alexa-the-perfect-wedding-38b14b41faf0#.b71cd6lsn
 
 The purpose of this project is to give Alexa users a way to playback music, using their own Plex server. However, it is also a way to show developers a method to integrate Plex into Alexa as a music service. The application does however not enable remote control of Plex instances, nor does it (as for this moment) include a global technique of authentication. However, a detailed overview on how to setup this application is provided below.
@@ -30,19 +41,11 @@ The copied link address form should normally look something like this (with the 
 ```
 https://your-plex-ip-address.some_long_encoded_string.plex.direct:your_plex_port/library/parts/some_id/some_file_id/file.ext?download=1&X-Plex-Token=your_plex_token
 ```
-When looking at this long url, both needed variables can be extracted as following. It is important for the base url that the / after your_plex_port is not copied with.
+When looking at this long url, extract the following. It is important for the base url that the / after your_plex_port is not copied with.
 ```
-base url = https://your-plex-ip-address.some_long_encoded_string.plex.direct:your_plex_port
-Plex token = your_plex_token
+raw_plex_token = your_plex_token
 ```
 Now, we have to set these environmental variables in our Heroku server. To do this, go back to the terminal (or command prompt) and enter the following lines, changed with your extracted variables.
-```
-heroku config:set PLEX_TOKEN=your_plex_token
-heroku config:set PLEX_URL=https://your-plex-ip-address.some_long_encoded_string.plex.direct:your_plex_port
-```
-Lastly, we just have to restart the server so it can cope with the set environmental variables. To do this, just use the following command.
-```
-heroku restart
 ```
 
 #### Optional Local URL Variable
