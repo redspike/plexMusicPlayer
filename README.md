@@ -1,9 +1,12 @@
 # Plex Music Player
 This fork allows you to host the code on your own server rather than through heroku.
 
-Just copy the code for the apache conf to a virtual host on your server 
+Just copy the code for the apache conf to a virtual host on your server
+
 Set up an SSL certificate (can be self signed)
+
 Fill in the plex token and the local ip of your server in the methods.py file
+
 Restart Apache
 
 Follow Tyzer34's guide for creating the Alexa skill and away you go.
