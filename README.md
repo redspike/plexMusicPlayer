@@ -5,7 +5,7 @@ Just copy the code for the apache conf to a virtual host on your server
 
 Set up an SSL certificate (can be self signed)
 
-Fill in the plex token and the local ip of your server in the methods.py file
+Fill in the plex token, the local ip and the name of your plex server in the methods.py file
 
 Restart Apache
 
