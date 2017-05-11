@@ -10,12 +10,13 @@ import xml.etree.ElementTree
 raw_plex_token = "plextokenhere"
 plex_string = "longplexstringhere"
 plex_port = "plexporthere"
+plex_server_name = "plexservernamehere"
 
 def getPlexURL():
         r = requests.get('https://plex.tv/api/resources.xml?auth_token='+raw_plex_token+'&includeHttps=1')
         e = xml.etree.ElementTree.fromstring(r.text)
         for atype in e.findall('Device'):
-                if atype.get('name') == "PlexServer":
+                if atype.get('name') == plex_server_name:
                         for conn in atype.findall('Connection'):
                                 if conn.get('local') == "0":
                                         return conn.get('uri')
