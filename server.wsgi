@@ -1,3 +1,5 @@
+import sys
+sys.path.insert(0, '/var/www/plex')
 from plexmusicplayer import app as application
 
 # --------------------------------------------------------------------------------------------
