@@ -254,7 +254,7 @@ def createAlbumPlaylist(json_album, album, artist):
 
 def callPlex(query, mediaType):
 
-    searchQueryUrl = base_url + "/search?query=" + query + "&" + plex_token + "&type=" + mediaType.value
+    searchQueryUrl = base_url + "/search?query=" + query + "&" + plex_token + "&type=" + str(mediaType)
 
     return getJsonFromPlex(searchQueryUrl)
 
@@ -265,7 +265,7 @@ def processQuery(query, mediaType):
         # are there numbers that need to be converted?
         if hasNumbers(query):
             json_obj = callPlex(findAndConvertNumberInQuery(query), mediaType)
-    if json_obj['MediaContainer']['@size'] == '0' and mediaType.value in ['8', '9']:
+    if json_obj['MediaContainer']['@size'] == '0' and str(mediaType) in ['8', '9']:
         # fuzzy match on albums and artists
         query = fuzzy_match(query, mediaType)
         if query:
