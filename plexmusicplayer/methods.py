@@ -14,7 +14,7 @@ plex_server_name = "plexservernamehere"
 
 def getPlexURL():
         r = requests.get('https://plex.tv/api/resources.xml?auth_token='+raw_plex_token+'&includeHttps=1')
-        e = xml.etree.ElementTree.fromstring(r.text)
+        e = xml.etree.ElementTree.fromstring(r.text.encode('utf-8'))
         for atype in e.findall('Device'):
                 if atype.get('name') == plex_server_name:
                         for conn in atype.findall('Connection'):
